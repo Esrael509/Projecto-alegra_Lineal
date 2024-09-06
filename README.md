@@ -1,3 +1,3 @@
 println("Hola mundo")
-nombfe = input("Dar nombre: ")
+nombre = input("Dar nombre: ")
 print("hola ",nombre)
