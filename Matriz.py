@@ -57,8 +57,6 @@ class Matriz:
             print("\nNo se puede obtener el triangular superior")
             return None
     
-    
-    
     @staticmethod
     def trianInf(M):
         Mat = Matriz(M.getFil(), M.getCol())
