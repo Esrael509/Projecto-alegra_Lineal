@@ -1,139 +1,46 @@
-from Matriz import Matriz
+from Matriz import MatrizTablero
+from tkinter import *
+
+raiz = Tk()
+frame: Frame = Frame()
+texto1: Label
+cuadro = Canvas()
+bot1:Button
 
 def main()-> None:
-    fil: int
-    col: int
-    alfa: int
-    op: int = 1
-    M1: Matriz = None
-    M2: Matriz = None
-    M3: Matriz = None
+   crearGraf()
+
+
+def crearGraf()->None:
+    raiz.title("Gato de 4*4*4")
+    raiz.resizable(False,False)
+    frame.pack()
+    frame.config(width="1280",height="720")
+
+    cuadro.pack()
+    cuadro.config(width="1280",height="720")
     
-    while op > 0 and op <= 11:
-        print("\tOperaciones con matrices\n"
-              "0)Matriz nula\n"
-              "1)Suma\n"
-              "2)Resta\n"
-              "3)Producto\n"
-              "4)Matriz Triangular Superior\n"
-              "5)Matriz Triangular Inferior\n"
-              "6)Matriz Diagonal\n"
-              "7)Matriz Identidad\n"
-              "8)Matriz Transpuesta\n"
-              "9)Determinar si una matriz es simétrica\n"
-              "10)Producto escalar\n"
-              "11)Matriz opuesta\n"
-              "12)Salir\n")
-        op = int(input("Opcion: "))
-        
-        if op < 0 or op > 11: break
+    cuadro.place(x=0,y=0)
 
-        if op:
-            if M1 == None:
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M1 = Matriz(fil, col)
-                M1.llenaMat()
-        
-        match op:
-            case 0:
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M1 = Matriz(fil, col)
-                print("\tMatriz:")
-                M1.mostrar()
-            case 1:
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M2 = Matriz(fil, col)
-                M2.llenaMat()
-                print("\tMatriz 1:")
-                M1.mostrar()
-                print("\tMatriz 2:")
-                M2.mostrar()
-                print("\tSuma de matrices:")
-                M3 = Matriz.sumaMat(M1, M2)
-                    
-            case 2:
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M1 = Matriz(fil, col)
-                M1.llenaMat()
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M2 = Matriz(fil, col)
-                M2.llenaMat()
-                print("\tMatriz 1:")
-                M1.mostrar()
-                print("\tMatriz 2:")
-                M2.mostrar()
-                print("\tResta de matrices:")
-                M3 = Matriz.restaMat(M1, M2)
-                    
-            case 3:
-                fil = int(input("Filas: "))
-                col = int(input("Columnas: "))
-                M2 = Matriz(fil, col)
-                M2.llenaMat()
-                print("\tMatriz 1:")
-                M1.mostrar()
-                print("\tMatriz 2:")
-                M2.mostrar()
-                print("\tProducto de matrices:")
-                M3 = Matriz.productoM(M1, M2)
-            
-            case 4:
-                print("Matriz:")
-                if M1 != None: M1.mostrar()
-                print("\tTriangular superior:")
-                M3 = Matriz.trianSup(M1)
-            
-            case 5:
-                print("Matriz:")
-                if M1 != None: M1.mostrar()
-                print("\tTriangular inferior:")
-                M3 = Matriz.trianInf(M1)
-                    
-            case 6:
-                print("Matriz:")
-                if M1 != None: M1.mostrar()
-                print("\tDiagonal:")
-                M3 = Matriz.diago(M1)
-                    
-            case 7:
-                if M1 != None: M1.mostrar()
-                print("\tMatriz identidad:")
-                M3 = Matriz.iden(M1)
-            
-            case 8:
-                print("\tMatriz:")
-                if M1 != None: M1.mostrar()
-                print("\tMatriz transpuesta")
-                M3 = Matriz.matrizT(M1)
-            
-            case 9:
-                print("\tMatriz:")
-                if M1 != None: M1.mostrar()
-                if M1.simetrica():
-                    print("La matriz es simetrica")
-                else:
-                    print("La matriz no es simétrica")
+    dibujarTabla("black")
 
-            case 10:
-                alfa = int(input("Valor de alfa: "))
-                print("\tProducto escalar de ",alfa,":")
-                M1.pEscalar(alfa)
-                M1.mostrar()
+    setTexto("Primer plano","black")
 
-            case 11:
-                M3 = Matriz.opuesta(M1)
-                print("\tMatriz:")
-                if M1 != None: M1.mostrar()
-                print("\tMatriz opuesta:")
-            
-        if M3 != None:
-            M3.mostrar()
-            
-        op = int(input("1 para continuar. 0 para salir: "))      
-    
+    bot1 = Button(raiz)
+    raiz.mainloop()
+   
+def dibujarTabla(argu: str) -> None:
+    cuadro.create_line(380,100,900,100,width=4,fill=argu)
+    cuadro.create_line(380,620,900,620,width=4,fill=argu)
+    cuadro.create_line(380,100,380,620,width=4,fill=argu)
+    cuadro.create_line(900,100,900,620,width=4,fill=argu)
+    for x in range(4):
+        cuadro.create_line(380,100+x*130,900,100+x*130,width=2,fill=argu)
+        cuadro.create_line(380+x*130,100,380+x*130,620,width=2,fill=argu)
+
+def setTexto(mens: str, color: str) -> None:
+    texto1 = Label(raiz,text = mens,fg = color, font=("Arial",20))
+    texto1.place(x=560,y=20)
+
+
 main()
